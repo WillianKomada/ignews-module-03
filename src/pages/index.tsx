@@ -27,14 +27,19 @@ export default function Home({ product }: HomeProps) {
 
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
-          <span>👏 Hey, Welcome</span>
+          <span>
+            👏 <b>Hey, Welcome</b>
+          </span>
+
           <h1>
             News about the <span>React</span> world.
           </h1>
+
           <p>
             Get access to all the publications <br />
             <span>for {product.amount} month</span>
           </p>
+
           <SubscribeButton priceId={product.priceId} />
         </section>
 
@@ -45,7 +50,7 @@ export default function Home({ product }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const price = await stripe.prices.retrieve("price_1IY3P0KxMAkNpbLaQ43bJu6O");
+  const price = await stripe.prices.retrieve("price_1K8pRjHTilNqvJLftP9oZLo7");
 
   const product = {
     priceId: price.id,
