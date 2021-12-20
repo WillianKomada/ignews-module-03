@@ -8,8 +8,8 @@ import { stripe } from "../services/stripe";
 import styles from "./home.module.scss";
 
 // Client-side = Sem necessidade de indexação do Google/motores de busca
-// Server-side = Informações dinâmicas
-// Static Site Generation = Informações que não mudam
+// Server-side Rendering (SSR) = Informações dinâmicas
+// Static Site Generation (SSG) = Informações que não mudam
 
 interface HomeProps {
   product: {
