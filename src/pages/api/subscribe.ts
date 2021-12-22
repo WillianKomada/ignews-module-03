@@ -55,12 +55,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       customer: customerId,
       payment_method_types: ['card'], // método de pagamento (cartão)
       billing_address_collection: 'required', // requerimento do endereço pessoal
-      line_items: [ // descrição do produto (preço, quantidade)
+      line_items: [
         {
           price: process.env.STRIPE_PRICE_SIGNATURE, 
           quantity: 1
         }
-      ],
+      ], // descrição do produto (preço, quantidade)
       mode: 'subscription', // descreve se é um pagamento de uma única vez ou recorrente (recorrente)
       allow_promotion_codes: true, // possibilita uso de cupons de desconto
       success_url: process.env.STRIPE_SUCCESS_URL, // Ao aceitar é redirecionado

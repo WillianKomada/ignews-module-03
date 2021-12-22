@@ -21,7 +21,7 @@ export default NextAuth({
           q.Get(
             q.Intersection([
               q.Match(
-                q.Index('subscripton_by_user_ref'),
+                q.Index('subscription_by_user_ref'),
                 q.Select(
                   "ref",
                   q.Get(

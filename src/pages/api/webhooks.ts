@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { type } = event;
 
     if (relevantEvents.has(type)) {
-      try {
+      try { 
         switch (type) {
           case 'customer.subscription.updated':
           case 'customer.subscription.deleted':
@@ -54,6 +54,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             await saveSubscription(
               subscription.id,
               subscription.customer.toString(),
+              false
             );
 
             break;
@@ -63,7 +64,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             await saveSubscription(
               checkoutSession.subscription.toString(),
-              checkoutSession.customer.toString()
+              checkoutSession.customer.toString(),
+              true
             )
 
             break;
