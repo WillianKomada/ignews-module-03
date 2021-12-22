@@ -17,23 +17,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const session = await getSession({ req })
 
+    // busca um usuário por e-mail
     const user = await fauna.query<User>(
       q.Get(
         q.Match(
           q.Index('user_by_email'),
           q.Casefold(session.user.email)
         )
-      )
+      ) 
     )
 
-    let customerId = user.data.stripe_customer_id
+    let customerId = user.data.stripe_customer_id // ID do Stripe e não do FaunaDB
 
-    if (!customerId) {
+    // verifica se o usuário do stripe existe
+    if (!customerId) {                                
       const stripeCustomer = await stripe.customers.create({
         email: session.user.email,
         // metadata
       })
 
+      // atualiza uma informação no usuário
       await fauna.query(
         q.Update(
           q.Ref(q.Collection('users'), user.ref.id),
@@ -50,18 +53,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
-      payment_method_types: ['card'],
-      billing_address_collection: 'required',
-      line_items: [
+      payment_method_types: ['card'], // método de pagamento (cartão)
+      billing_address_collection: 'required', // requerimento do endereço pessoal
+      line_items: [ // descrição do produto (preço, quantidade)
         {
-          price: 'price_1IY3P0KxMAkNpbLaQ43bJu6O',
+          price: process.env.STRIPE_PRICE_SIGNATURE, 
           quantity: 1
         }
       ],
-      mode: 'subscription',
-      allow_promotion_codes: true,
-      success_url: process.env.STRIPE_SUCCESS_URL,
-      cancel_url: process.env.STRIPE_CANCEL_URL
+      mode: 'subscription', // descreve se é um pagamento de uma única vez ou recorrente (recorrente)
+      allow_promotion_codes: true, // possibilita uso de cupons de desconto
+      success_url: process.env.STRIPE_SUCCESS_URL, // Ao aceitar é redirecionado
+      cancel_url: process.env.STRIPE_CANCEL_URL // Ao recursar é redirecionado
     })
 
     return res.status(200).json({ sessionId: stripeCheckoutSession.id })
