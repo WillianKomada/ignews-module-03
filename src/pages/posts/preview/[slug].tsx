@@ -47,7 +47,9 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <div className={styles.continueReading}>
           Wanna continue reading?
           <Link href="/">
-            <a href="">Subscribe now 🤗</a>
+            <a href="">
+              <b>Subscribe now</b> 🤗
+            </a>
           </Link>
         </div>
       </main>
@@ -57,8 +59,8 @@ export default function PostPreview({ post }: PostPreviewProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
-    fallback: "blocking",
+    paths: [], // Dentro de paths eu posso passar quais páginas eu quero pré carregar estaticamente na build
+    fallback: "blocking", // true, false, blocking
   };
 };
 
@@ -72,7 +74,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = {
     slug,
     title: RichText.asText(response.data.title),
-    content: RichText.asHtml(response.data.content.splice(0, 3)),
+    content: RichText.asHtml(response.data.content.splice(0, 3)), // pega apenas os 3 primeiros items do content
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "en-us",
       {

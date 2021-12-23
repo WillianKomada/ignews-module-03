@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/client";
 import Head from "next/head";
+import { getSession } from "next-auth/client";
 import { RichText } from "prismic-dom";
 import { getPrismicClient } from "../../services/prismic";
 
@@ -28,7 +28,7 @@ export default function Post({ post }: PostProps) {
           <time>{post.updatedAt}</time>
           <div
             className={styles.postContent}
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post.content }} // Identifica o content e o transforma em HTML
           />
         </article>
       </main>
@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const post = {
     slug,
     title: RichText.asText(response.data.title),
-    content: RichText.asHtml(response.data.content),
+    content: RichText.asHtml(response.data.content), // recebe todo o content na semântica HTML
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "en-us",
       {
