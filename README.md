@@ -52,7 +52,7 @@ $ yarn dev
 
 ## 📷 Imagens do Projeto
 
-<p>Imagem ilustrativa do projeto 😎 06/12/2021</p>
+<p>Imagem ilustrativa do projeto 😎 23/12/2021</p>
 
 - [ImageKit](https://imagekit.io/)
 
