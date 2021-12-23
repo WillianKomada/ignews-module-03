@@ -1,10 +1,11 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import Prismic from "@prismicio/client";
 import { RichText } from "prismic-dom";
 import { getPrismicClient } from "../../services/prismic";
+
 import styles from "./styles.module.scss";
-import Link from "next/link";
 
 type Post = {
   slug: string;
@@ -44,6 +45,7 @@ export default function Posts({ posts }: PostsProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
 
+  // Chamada à api do prismic para recebimento das informações
   const response = await prismic.query(
     [Prismic.predicates.at("document.type", "publication")],
     {
@@ -52,19 +54,20 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
+  // Formatação dos dados
   const posts = response.results.map((post) => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
       excerpt:
         post.data.content.find((content) => content.type === "paragraph")
-          ?.text ?? "",
+          ?.text ?? "", // busca pelo primeiro conteúdo que seja parágrafo senão retorna uma string vazia
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
         "en-us",
         {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
+          day: "2-digit", // 2-digit || numeric
+          month: "long", // 2-digit || numeric || long || short || narrow
+          year: "numeric", // 2-digit || numeric
         }
       ),
     };
