@@ -58,4 +58,4 @@ $ yarn dev
 
 <img src="https://ik.imagekit.io/cucgno2zqys/home_A3GwEOHqY.PNG?updatedAt=1640297686915" alt="Home Page">
 <img src="https://ik.imagekit.io/cucgno2zqys/posts_Ay2Yum554Nw.PNG?updatedAt=1640297686647" alt="Posts Page">
-<img src="https://ik.imagekit.io/cucgno2zqys/post_UQkAloAvU.PNG?updatedAt=1640297686797" alt="Post Page">
+<img src="https://ik.imagekit.io/cucgno2zqys/post1_AwR7rnnqK.PNG?updatedAt=1640297852684" alt="Post Page">
