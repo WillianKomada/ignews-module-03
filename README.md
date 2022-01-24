@@ -64,8 +64,7 @@ $ yarn dev
 
 ## 🚀 Next Level
 
-Essa aplicação recebeu um next level, ou seja, ela vai para um próximo nível. 
-Atualização com: 
+Essa aplicação recebeu um next level, ou seja, ela vai para um próximo nível. Atualização com: 
 - Testes unitários;
 - Testes de integração;
 - Teste E2E;
